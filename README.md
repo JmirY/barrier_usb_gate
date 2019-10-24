@@ -7,7 +7,7 @@
 __USB data transfer cable required__.  
 Which enables communication between USB hosts.  
 Cable also need to provide libusb as API.  
-This one was tested with cable using Prolific PL2701 chipset.
+Tested with cable using Prolific PL2701 chipset.
 
 ## Depedencies
 - libusb  
