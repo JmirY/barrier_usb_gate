@@ -119,6 +119,22 @@ Gate::createSocket()
         return -1;
     }
     std::cout << "[DEBUG] Socket created" << std::endl;
+
+    // set timeout
+    int status = 0;
+    int timeout = 1000;
+    status = setsockopt(
+        m_sock,
+        SOL_SOCKET,
+        SO_RCVTIMEO,
+        (const char*)&timeout,
+        sizeof(timeout)
+    );
+    if (status == SOCKET_ERROR)
+    {
+        std::cout << "[WARN] setsockopt() failed" << std::endl;
+    }
+
     return 0;
 }
 
@@ -148,7 +164,10 @@ Gate::recvSocket(char* buf, int len)
 
     if (result == SOCKET_ERROR)
     {
-        std::cout << "[ERR] recv() failed" << std::endl;
+        if (WSAGetLastError() == WSAETIMEDOUT)
+            std::cout << "[DEBUG] Socket timed out" << std::endl;
+        else
+            std::cout << "[ERR] recv() failed" << std::endl;
     }
     else
     {
