@@ -19,18 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="App.cpp" />
-    <ClCompile Include="ClientSideGate.cpp" />
-    <ClCompile Include="Gate.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="ServerSideGate.cpp" />
+    <ClInclude Include="src\App.h" />
+    <ClInclude Include="src\ClientSideGate.h" />
+    <ClInclude Include="src\EventQueue.h" />
+    <ClInclude Include="src\Gate.h" />
+    <ClInclude Include="src\ServerSideGate.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App.h" />
-    <ClInclude Include="ClientSideGate.h" />
-    <ClInclude Include="EventQueue.h" />
-    <ClInclude Include="Gate.h" />
-    <ClInclude Include="ServerSideGate.h" />
+    <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\ClientSideGate.cpp" />
+    <ClCompile Include="src\Gate.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\ServerSideGate.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
