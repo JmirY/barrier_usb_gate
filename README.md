@@ -17,11 +17,10 @@ Static library file (libusb-1.0.lib) is in (projRoot)/libusb/.
 ## How to Build
 1. Install Microsoft Visual Studio  
 Program uses Windows API (winsock2).  
-So it would be a convinient way to use msvc as builder.  
+So it would be much convinient for you to use msvc as builder.  
 Visual Studio 2019 is recommended.  
 2. Open solution file (_barrier_usb_gate.sln_) then __BUILD__  
 Build output directory will be seen at root directory.  
-Directory's name gonna be DEBUG or RELEASE upon your build setting.  
 
 ## How to Use
 1. Run barrier server and client  
