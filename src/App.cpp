@@ -28,6 +28,7 @@ App::run()
         barrierGate = dynamic_cast<ClientSideGate*>(barrierGate);
         break;
     case kNoBarrier:
+        std::cout << "[DEBUG] No barrier process" << std::endl;
         return -1;
     }
 
@@ -84,34 +85,38 @@ App::detectProcess()
     system("tasklist | findstr barrier 1> tmp.txt");
 
     // get output from redirected file
-    char buffer[13] = { 0 };
+    char buffer[BUF_LEN] = { 0 };
     std::ifstream outputFile;
     outputFile.open("tmp.txt");
-    if (outputFile.is_open())
-        outputFile.getline(buffer, 13);
-    else
+    if ( !outputFile.is_open() )
     {
         std::cout << "[ERROR] file is not opened well" << std::endl;
         return kNoBarrier;
     }
 
+    eBarrierProcess result = kNoBarrier;
+    char *procName = NULL, *context = NULL;
+    outputFile.getline(buffer, BUF_LEN);
+    while (outputFile.gcount() > 0)
+    {
+        procName = strtok_s(buffer, " ", &context);
+        if (!strcmp(procName, "barriers.exe"))
+        {
+            std::cout << "[DEBUG] Server process detected" << std::endl;
+            result = kIsServer;
+            break;
+        }
+        else if (!strcmp(procName, "barrierc.exe"))
+        {
+            std::cout << "[DEBUG] Client process detected" << std::endl;
+            result = kIsClient;
+            break;
+        }
+        outputFile.getline(buffer, BUF_LEN);
+    }
+
     // close stream & delete redirected file
     outputFile.close();
     system("del tmp.txt");
-
-    if (!strcmp(buffer, "barriers.exe"))
-    { 
-        std::cout << "[DEBUG] Server process detected" << std::endl;
-        return kIsServer;
-    }
-    else if (!strcmp(buffer, "barrierc.exe"))
-    {
-        std::cout << "[DEBUG] Client process detected" << std::endl;
-        return kIsClient;
-    }
-    else
-    {
-        std::cout << "[DEBUG] No barrier process" << std::endl;
-        return kNoBarrier;
-    }
+    return result;
 }

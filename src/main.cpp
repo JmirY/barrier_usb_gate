@@ -13,6 +13,9 @@ int main()
     // run actual app
     result = app.run();
 
-    std::cout << "[DEBUG] Program ended properly" << std::endl;
+    if (result == 0)
+        std::cout << "[DEBUG] Program ended properly" << std::endl;
+    else
+        std::cout << "[ERR] Something goes wrong" << std::endl;
     return result;
 }
